@@ -49,15 +49,15 @@ def plot_sparkline_discrete(results, args, longlines=False):
     (dmin, dmax) = [int(x) for x in args.get('limits', '0,100').split(',')]
     if dmax < dmin:
         dmax = dmin
-    zero = im.size[1] - 1
+    zero = im.height - 1
     if dmin < 0 and dmax > 0:
-        zero = im.size[1] - (0 - dmin) / (float(dmax - dmin + 1) / (height - gap))
+        zero = im.height - (0 - dmin) / (float(dmax - dmin + 1) / (height - gap))
     for (r, i) in zip(results, range(0, len(results)*width, width)):
         color = (r >= upper) and above_color or below_color
         if r < 0:
-            y_coord = im.size[1] - (r - dmin) / (float(dmax - dmin + 1) / (height - gap))
+            y_coord = im.height - (r - dmin) / (float(dmax - dmin + 1) / (height - gap))
         else:
-            y_coord = im.size[1] - (r - dmin) / (float(dmax - dmin + 1) / (height - gap))
+            y_coord = im.height - (r - dmin) / (float(dmax - dmin + 1) / (height - gap))
         im.color = rgb.colors[color]
         if longlines:
             im.rectangle(i, zero, i+width-2, y_coord)
