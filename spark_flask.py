@@ -62,7 +62,7 @@ def plot_sparkline_smooth(results, args):
    (dmin, dmax) = [int(x) for x in args.get('limits', '0,100').split(',')]
    im = PNGCanvas((len(results)-1)*step+4, height)
    coords = zip(range(1,len(results)*step+1, step), [height - 3  - (y-dmin)/(float(dmax - dmin +1)/(height-4)) for y in results])
-   im.color = [128, 128, 128]
+   im.color = [128, 128, 128, 255]
    lastx, lasty = coords[0]
    for x0, y0, in coords:
      im.line(lastx, lasty, x0, y0)
