@@ -101,6 +101,7 @@ plot_types = {
   'error': plot_error
 }
 
+@app.route("/spark.cgi")
 @app.route("/sparkline")
 def sparkline():
 
