@@ -63,6 +63,9 @@ def plot_sparkline_smooth(results, args):
    height = int(args.get('height', '20'))
    (dmin, dmax) = [int(x) for x in args.get('limits', '0,100').split(',')]
    im = PNGCanvas((len(results)-1)*step+4, height)
+   im.color = rgb.colors['white']
+   im.filledRectangle(0, 0, im.width-1, im.height-1)
+
    coords = zip(range(1,len(results)*step+1, step), [height - 3  - (y-dmin)/(float(dmax - dmin +1)/(height-4)) for y in results])
    im.color = [128, 128, 128, 255]
    lastx, lasty = coords[0]
