@@ -36,6 +36,8 @@ def plot_sparkline_discrete(results, args, longlines=False):
     if longlines:
         gap = 0
     im = PNGCanvas(len(results)*width-1, height)
+    im.color = rgb.colors['white']
+    im.filledRectangle(0, 0, im.width-1, im.height-1)
 
     (dmin, dmax) = [int(x) for x in args.get('limits', '0,100').split(',')]
     if dmax < dmin:
@@ -51,7 +53,7 @@ def plot_sparkline_discrete(results, args, longlines=False):
             y_coord = im.height - (r - dmin) / (float(dmax - dmin + 1) / (height - gap))
         im.color = rgb.colors[color]
         if longlines:
-            im.rectangle(i, zero, i+width-2, y_coord)
+            im.filledRectangle(i, zero, i+width-2, y_coord)
         else:
             im.rectangle(i, y_coord - gap, i+width-2, y_coord)
     return im.dump()
