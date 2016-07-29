@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# A simple shell wrapper to control sparklines
+
+SPARKLINES_HOME="/home/ops/sparklines-image-generator"
+
+status=$(ps -efww | grep -w "[s]park_flask.py" | awk -vpid=$$ '$2 != pid { print $2 }')
+
+case $1 in
+   start)
+      if [ ! -z $status ]; then
+        echo "sparklines is already running"
+      else
+        nohup `python $SPARKLINES_HOME/spark_flask.py` > /dev/null 2>&1 &
+        echo "sparklines was started"
+      fi
+   ;;
+   stop)
+      if [ ! -z $status ]; then
+        kill $status && echo "stopped sparklines"
+      else
+        echo "sparkline is already stopped"
+      fi
+   ;;
+   status)
+      if [ ! -z $status ]; then
+        echo "Sparklines is running with pid" $status
+      else
+        echo "sparklines is not running"
+      fi
+   ;;
+   *)
+      echo "usage: sparklines {start|stop|status}" ;;
+esac
+exit 0
+
+
+
